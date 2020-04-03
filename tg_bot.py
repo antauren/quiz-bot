@@ -1,4 +1,5 @@
-from dotenv import dotenv_values
+import os
+from dotenv import load_dotenv
 
 from functools import partial
 
@@ -62,12 +63,12 @@ def main(token, redis_db):
 
 
 if __name__ == '__main__':
-    values_dict = dotenv_values()
+    load_dotenv()
 
-    host = values_dict['REDIS_HOST']
-    port = int(values_dict['REDIS_PORT'])
-    password = values_dict['REDIS_PASSWORD']
-    redis_db = redis.Redis(host=host, port=port, db=0, password=password)
+    redis_db = redis.Redis(host=os.environ['REDIS_HOST'],
+                           port=os.environ['REDIS_PORT'],
+                           password=os.environ['REDIS_PASSWORD'],
+                           db=0
+                           )
 
-    token = values_dict['TG_TOKEN']
-    main(token, redis_db)
+    main(os.environ['TG_TOKEN'], redis_db)
