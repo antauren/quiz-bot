@@ -8,7 +8,7 @@ import redis
 from telegram import ReplyKeyboardMarkup
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, ConversationHandler, RegexHandler
 
-from handlers.tg_bot import (handle_new_question_request, handle_surrender, handle_stat_request,
+from handlers.tg import (handle_new_question_request, handle_surrender, handle_stat_request,
                              handle_solution_attempt,
                              CHOOSING)
 
