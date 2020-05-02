@@ -33,7 +33,10 @@ def cancel(bot, update):
 
 
 def help(bot, update):
-    update.message.reply_text('Help!')
+    """Send a message when the command /help is issued."""
+
+    text = 'Чтобы запустить бота, введите команду /start'
+    update.message.reply_text(text)
 
 
 def main():
