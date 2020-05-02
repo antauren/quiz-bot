@@ -12,8 +12,6 @@ from handlers.vk import hadle_message
 
 
 def main():
-    """ Пример создания клавиатуры для отправки ботом """
-
     load_dotenv()
     token = os.environ['VK_TOKEN']
 
