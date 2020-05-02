@@ -11,8 +11,17 @@ from vk_api.longpoll import VkLongPoll, VkEventType
 from handlers.vk import hadle_message
 
 
-def main(token, redis_db):
+def main():
     """ Пример создания клавиатуры для отправки ботом """
+
+    load_dotenv()
+    token = os.environ['VK_TOKEN']
+
+    redis_db = redis.Redis(host=os.environ['REDIS_HOST'],
+                           port=os.environ['REDIS_PORT'],
+                           password=os.environ['REDIS_PASSWORD'],
+                           db=0
+                           )
 
     vk_session = VkApi(token=token)
     vk_api = vk_session.get_api()
@@ -40,12 +49,4 @@ def main(token, redis_db):
 
 
 if __name__ == "__main__":
-    load_dotenv()
-
-    redis_db = redis.Redis(host=os.environ['REDIS_HOST'],
-                           port=os.environ['REDIS_PORT'],
-                           password=os.environ['REDIS_PASSWORD'],
-                           db=0
-                           )
-
-    main(os.environ['VK_TOKEN'], redis_db)
+    main()

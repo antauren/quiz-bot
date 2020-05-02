@@ -9,8 +9,8 @@ from telegram import ReplyKeyboardMarkup
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, ConversationHandler, RegexHandler
 
 from handlers.tg import (handle_new_question_request, handle_surrender, handle_stat_request,
-                             handle_solution_attempt,
-                             CHOOSING)
+                         handle_solution_attempt,
+                         CHOOSING)
 
 import logging
 
@@ -36,7 +36,16 @@ def help(bot, update):
     update.message.reply_text('Help!')
 
 
-def main(token, redis_db):
+def main():
+    load_dotenv()
+    token = os.environ['TG_TOKEN']
+
+    redis_db = redis.Redis(host=os.environ['REDIS_HOST'],
+                           port=os.environ['REDIS_PORT'],
+                           password=os.environ['REDIS_PASSWORD'],
+                           db=0
+                           )
+
     updater = Updater(token)
 
     dp = updater.dispatcher
@@ -63,12 +72,4 @@ def main(token, redis_db):
 
 
 if __name__ == '__main__':
-    load_dotenv()
-
-    redis_db = redis.Redis(host=os.environ['REDIS_HOST'],
-                           port=os.environ['REDIS_PORT'],
-                           password=os.environ['REDIS_PASSWORD'],
-                           db=0
-                           )
-
-    main(os.environ['TG_TOKEN'], redis_db)
+    main()
