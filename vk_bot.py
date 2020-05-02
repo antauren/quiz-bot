@@ -14,6 +14,7 @@ from handlers.vk import hadle_message
 def main():
     load_dotenv()
     token = os.environ['VK_TOKEN']
+    encoding = os.environ.get('ENCODING', 'UTF-8')
 
     redis_db = redis.Redis(host=os.environ['REDIS_HOST'],
                            port=os.environ['REDIS_PORT'],
@@ -38,7 +39,7 @@ def main():
     for event in longpoll.listen():
 
         if event.type == VkEventType.MESSAGE_NEW and event.to_me:
-            message = hadle_message(event.text, event.user_id, redis_db)
+            message = hadle_message(event.text, event.user_id, redis_db, encoding)
 
             vk_api.messages.send(peer_id=event.user_id,
                                  random_id=get_random_id(),

@@ -27,10 +27,10 @@ def handle_stat_request(bot, update, redis_db):
     return CHOOSING
 
 
-def handle_new_question_request(bot, update, redis_db):
+def handle_new_question_request(bot, update, redis_db, encoding):
     tg_user_id = add_tg_prefix(update.message.from_user.id)
 
-    message = handler.handle_new_question_request(tg_user_id, redis_db)
+    message = handler.handle_new_question_request(tg_user_id, redis_db, encoding)
 
     update.message.reply_text(message)
 

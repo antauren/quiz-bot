@@ -2,20 +2,20 @@ import os
 import random
 
 
-def get_random_question_answer(dir_path='questions') -> tuple:
+def get_random_question_answer(dir_path='questions', encoding='UTF-8') -> tuple:
     file_name = random.choice(os.listdir(dir_path))
 
     path = os.path.join(dir_path, file_name)
 
-    text = read_file(path)
+    text = read_file(path, encoding)
 
     question_answer_list = parse_questions(text)
 
     return random.choice(question_answer_list)
 
 
-def read_file(path) -> str:
-    with open(path, encoding='KOI8-R') as fd:
+def read_file(path, encoding='UTF-8') -> str:
+    with open(path, encoding=encoding) as fd:
         return fd.read()
 
 

@@ -42,6 +42,7 @@ def help(bot, update):
 def main():
     load_dotenv()
     token = os.environ['TG_TOKEN']
+    encoding = os.environ.get('ENCODING', 'UTF-8')
 
     redis_db = redis.Redis(host=os.environ['REDIS_HOST'],
                            port=os.environ['REDIS_PORT'],
@@ -56,7 +57,8 @@ def main():
     conv_handler = ConversationHandler(
         entry_points=[CommandHandler('start', start)],
         states={
-            CHOOSING: [RegexHandler('Новый вопрос', partial(handle_new_question_request, redis_db=redis_db)),
+            CHOOSING: [RegexHandler('Новый вопрос',
+                                    partial(handle_new_question_request, redis_db=redis_db, encoding=encoding)),
                        RegexHandler('Сдаться', partial(handle_surrender, redis_db=redis_db)),
                        RegexHandler('Моя статистика', partial(handle_stat_request, redis_db=redis_db)),
 

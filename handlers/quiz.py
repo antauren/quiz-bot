@@ -17,8 +17,8 @@ def handle_stat_request(user_id, redis_db):
     return 'Количество угаданных вопросов: {}'.format(user_data['stat'])
 
 
-def handle_new_question_request(user_id, redis_db):
-    question, answer = get_random_question_answer()
+def handle_new_question_request(user_id, redis_db, encoding):
+    question, answer = get_random_question_answer(encoding=encoding)
 
     update_user_data(user_id, redis_db,
                      {'question': question, 'answer': answer, 'is_answered': False})
